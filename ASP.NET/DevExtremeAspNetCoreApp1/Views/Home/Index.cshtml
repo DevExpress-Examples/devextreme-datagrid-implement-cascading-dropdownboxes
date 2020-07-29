@@ -1,0 +1,163 @@
+@using DevExtremeAspNetCoreApp1.Models
+
+<div id="data-grid-demo">
+    @(Html.DevExtreme().DataGrid<EmployeeByState>()
+        .ID("gridContainer")
+        .ShowBorders(true)
+        .Editing(editing => {
+            editing.Mode(GridEditMode.Row);
+            editing.AllowUpdating(true);
+            editing.AllowAdding(true);
+        })
+        .Columns(columns => {
+            columns.AddFor(m => m.StateID)
+                .SetCellValue("setStateValue")
+                .CellTemplate(new JS("arrayCellTemplate"))
+                .EditCellTemplate(new TemplateName("StateDropDownBoxTemplate"))
+                .Lookup(lookup => lookup
+                    .DataSource(d => d.Mvc().Controller("DataGridStatesWithCities").LoadAction("Get").Key("ID"))
+                    .DisplayExpr("Name")
+                    .ValueExpr("ID")
+                );
+
+            columns.AddFor(m => m.CityID)
+                .CellTemplate(new JS("arrayCellTemplate"))
+                .EditCellTemplate(new TemplateName("CityDropDownBoxTemplate"))
+                .Lookup(lookup => lookup
+                    .DataSource("getCities")
+                    .DisplayExpr("Name")
+                    .ValueExpr("ID")
+                );
+
+        })
+        .DataSource(d => d.Mvc()
+            .Controller("DataGridEmployeesByState")
+            .LoadAction("Get")
+            .InsertAction("Post")
+            .UpdateAction("Put")
+            .Key("ID")
+        )
+    )
+
+    @using (Html.DevExtreme().NamedTemplate("StateDropDownBoxTemplate"))
+    {
+        @(Html.DevExtreme().DropDownBox()
+            .DataSource(new JS("column.lookup.dataSource"))
+            .Value(new JS("value"))
+            .ValueExpr("ID")
+            .DisplayExpr("Name")
+            .Option("setValue", new JS("setValue"))
+            .ContentTemplate(new TemplateName("StateContentTemplate"))
+        )
+    }
+
+    @using (Html.DevExtreme().NamedTemplate("StateContentTemplate"))
+    {
+        @(Html.DevExtreme().DataGrid()
+                .ID("dataGrid")
+                .DataSource(new JS("component.option('dataSource')"))
+                .Height(250)
+                .Columns(c => {
+                     c.Add().DataField("ID");
+                     c.Add().DataField("Name");
+                 })
+                .HoverStateEnabled(true)
+                .Selection(s => s.Mode(SelectionMode.Multiple))
+                .SelectedRowKeys(new JS("component.option('value')"))
+                .OnSelectionChanged("function(selectionChangedArgs) { onSelectionChanged(selectionChangedArgs, component) }")
+            )
+        @(Html.DevExtreme().Button()
+            .Text("Apply")
+            .OnClick("function(e) { onClick(e, component)}")
+        )
+    }
+
+    @using (Html.DevExtreme().NamedTemplate("CityDropDownBoxTemplate"))
+    {
+        @(Html.DevExtreme().DropDownBox()
+            .DataSource(new JS("getCityDropDownDs(obj)"))
+            .Value(new JS("value"))
+            .ValueExpr("ID")
+            .DisplayExpr("Name")
+            .Option("setValue", new JS("setValue"))
+            .ContentTemplate(new TemplateName("CityContentTemplate"))
+        )
+    }
+
+    @using (Html.DevExtreme().NamedTemplate("CityContentTemplate"))
+    {
+        @(Html.DevExtreme().DataGrid()
+            .ID("dataGrid")
+            .DataSource(new JS("component.option('dataSource')"))
+            .Height(250)
+            .Columns(c => {
+                c.Add().DataField("ID");
+                c.Add().DataField("Name");
+            })
+            .HoverStateEnabled(true)
+            .Selection(s => s.Mode(SelectionMode.Multiple))
+            .SelectedRowKeys(new JS("component.option('value')"))
+            .OnSelectionChanged("function(selectionChangedArgs) { onSelectionChanged(selectionChangedArgs, component) }")
+        )
+        @(Html.DevExtreme().Button()
+            .Text("Apply")
+            .OnClick("function(e) { onClick(e, component)}")
+        )
+    }
+</div>
+
+<script>
+    function getCities(options) {
+        return {
+            store: DevExpress.data.AspNet.createStore({
+                key: "ID",
+                loadUrl: '@Url.Action("Get", "DataGridCitiesByState", new { httproute = true })'
+            }),
+            filter: options.data ? ["StateID", "=", options.data.StateID] : null
+        };
+    }
+
+    function getCityDropDownDs(cellInfo) {
+        return new DevExpress.data.DataSource({
+            store: DevExpress.data.AspNet.createStore({
+                key: "ID",
+                loadUrl: '@Url.Action("Get", "DataGridCitiesByState", new { httproute = true })'
+            }),
+            filter: function (data) {
+                return cellInfo.row.data.StateID.includes(data.StateID);
+            }
+        });
+    }
+
+    function setStateValue(rowData, value) {
+        rowData.StateID = value;
+        rowData.CityID = [];
+    }
+
+    function arrayCellTemplate(container, options) {
+        var noBreakSpace = "\u00A0",
+            text = (options.value || []).map(element => {
+                return options.column.lookup.calculateCellValue(element);
+            }).join(", ");
+        container.text(text || noBreakSpace).attr("title", text);
+    }
+
+    function onClick(e, dropDownBox) {
+        let setValue = dropDownBox.option('setValue');
+        let dataGrid = getDropDownBoxGrid(dropDownBox);
+        let selectedKeys = dataGrid.getSelectedRowKeys();
+        setValue(selectedKeys);
+        
+        dropDownBox.close();
+    }
+
+    function getDropDownBoxGrid(dropDownBox) {
+        let dataGridEl = $(dropDownBox.content()).find("#dataGrid")
+        
+        return dataGridEl.dxDataGrid('instance')
+    }
+
+    function onSelectionChanged(e, dropDownBox) {
+        dropDownBox.option("value", e.selectedRowKeys);
+    }
+</script>
