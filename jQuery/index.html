@@ -8,274 +8,270 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn3.devexpress.com/jslib/20.1.6/css/dx.light.css" />
 	<script>
 		$(function () {
-	$("#dataGrid").dxDataGrid({
-		dataSource: data,
-		editing: {
-			allowUpdating: true,
-			allowAdding: true
-		},
-		columns: [
+			$("#dataGrid").dxDataGrid({
+				dataSource: data,
+				editing: {
+					allowUpdating: true,
+					allowAdding: true
+				},
+				columns: [
+					{
+						dataField: "stateID",
+						caption: "State",
+						lookup: {
+							dataSource: states,
+							displayExpr: "Name",
+							valueExpr: "ID"
+						},
+						editCellTemplate: stateDropDownBoxEditorTemplate,
+						cellTemplate: function (container, options) {
+							arrayCellTemplate(container, options)
+						},
+						setCellValue: function (rowData, value) {
+							rowData.stateID = value;
+							rowData.cityID = [];
+						},
+					},
+					{
+						dataField: "cityID",
+						caption: "City",
+						lookup: {
+							dataSource: cities,
+							displayExpr: "Name",
+							valueExpr: "ID"
+						},
+						editCellTemplate: cityDropDownBoxEditorTemplate,
+						cellTemplate: function (container, options) {
+							arrayCellTemplate(container, options)
+						}
+					}
+				]
+			});
+		});
+
+		function arrayCellTemplate(container, options) {
+			;
+			var noBreakSpace = "\u00A0",
+				text = (options.value || []).map(function (element) {
+					return options.column.lookup.calculateCellValue(element);
+				}).join(", ");
+			container.text(text || noBreakSpace).attr("title", text);
+		}
+
+		function stateDropDownBoxEditorTemplate(cellElement, cellInfo) {
+			let dropDownBox = $("<div>").dxDropDownBox({
+				dataSource: states,
+				value: cellInfo.value,
+				valueExpr: "ID",
+				displayExpr: "Name",
+				contentTemplate: function (e, element) {
+					let dataGridEl = $("<div>"),
+						dataGrid = dataGridEl.dxDataGrid({
+							dataSource: states,
+							keyExpr: "ID",
+							hoverStateEnabled: true,
+							height: 250,
+							selection: { mode: "multiple" },
+							selectedRowKeys: cellInfo.value
+						}).dxDataGrid('instance');
+
+					let saveBtn = createDropDownSaveBtn(dataGrid, cellInfo, e.component)
+					element.append(dataGridEl, saveBtn)
+
+				}
+
+			});
+
+			cellElement.append(dropDownBox)
+		}
+		function cityDropDownBoxEditorTemplate(cellElement, cellInfo) {
+			let cityDataSource = new DevExpress.data.DataSource({
+				store: new DevExpress.data.ArrayStore({
+					data: cities,
+					key: "ID"
+				}),
+				filter: function (data) {
+					return cellInfo.row.data.stateID.includes(data.StateID);
+				}
+			});
+			let dropDownBox = $("<div>").dxDropDownBox({
+				dataSource: cityDataSource,
+				value: cellInfo.value,
+				valueExpr: "ID",
+				displayExpr: "Name",
+				contentTemplate: function (e, element) {
+					let dataGridEl = $("<div>"),
+						dataGrid = dataGridEl.dxDataGrid({
+							dataSource: cityDataSource,
+							hoverStateEnabled: true,
+							height: 250,
+							columns: ["ID", "Name"],
+							selection: { mode: "multiple" },
+							selectedRowKeys: cellInfo.value
+						}).dxDataGrid('instance');
+
+					let saveBtn = createDropDownSaveBtn(dataGrid, cellInfo, e.component)
+					element.append(dataGridEl, saveBtn)
+				}
+			})
+
+			cellElement.append(dropDownBox);
+		}
+
+		function createDropDownSaveBtn(dataGrid, cellInfo, dropDownBox) {
+			return $("<div>").dxButton({
+				text: "Apply",
+				onClick: function (e) {
+					let selectedKeys = dataGrid.getSelectedRowKeys();
+					cellInfo.setValue(selectedKeys);
+					dropDownBox.option("value", selectedKeys);
+					dropDownBox.close();
+				}
+			})
+		}
+
+		var data = [
 			{
-				dataField: "stateID",
-				caption: "State",
-				lookup: {
-					dataSource: states,
-					displayExpr: "Name",
-					valueExpr: "ID"
-				},
-				editCellTemplate: stateDropDownBoxEditorTemplate,
-				cellTemplate: function(container, options) {
-					arrayCellTemplate(container, options)
-				},
-				setCellValue: function (rowData, value) {
-					rowData.stateID = value;
-					rowData.cityID = null;
-				},
+				stateID: [1],
+				cityID: [1]
+			}
+		];
+
+		const states = [
+			{
+				ID: 1,
+				Name: "Alabama"
 			},
 			{
-				dataField: "cityID",
-				caption: "City",
-				lookup: {
-					dataSource: cities,
-					displayExpr: "Name",
-					valueExpr: "ID"
-				},
-				editCellTemplate: cityDropDownBoxEditorTemplate,
-				cellTemplate: function(container, options) {
-					arrayCellTemplate(container, options)
-				}
+				ID: 2,
+				Name: "Alaska"
+			},
+			{
+				ID: 3,
+				Name: "Arizona"
+			},
+			{
+				ID: 4,
+				Name: "Arkansas"
+			},
+			{
+				ID: 5,
+				Name: "California"
 			}
-		]
-	});
-});
+		];
 
-function arrayCellTemplate(container, options) {;
-					var noBreakSpace = "\u00A0",
-						 text = (options.value || []).map(function(element) {
-							 return options.column.lookup.calculateCellValue(element);
-						 }).join(", ");
-					container.text(text || noBreakSpace).attr("title", text);
-}
-
-function stateDropDownBoxEditorTemplate(cellElement, cellInfo) {
-	let dropDownBox = $("<div>").dxDropDownBox({
-		dataSource: states,
-		value: cellInfo.value,
-		valueExpr: "ID",
-		displayExpr: "Name",
-		contentTemplate: function (e, element) {
-			let dataGridEl = $("<div>"),
-				 dataGrid = dataGridEl.dxDataGrid({
-				dataSource: states,
-				keyExpr: "ID",
-				hoverStateEnabled: true,
-				height: 250,
-				selection: { mode: "multiple" },
-				selectedRowKeys: cellInfo.value,
-				onSelectionChanged: function (selectionChangedArgs) {
-					e.component.option("value", selectionChangedArgs.selectedRowKeys);
-				}
-			}).dxDataGrid('instance');
-			
-			let saveBtn = createDropDownSaveBtn(dataGrid, cellInfo, e.component)
-			element.append(dataGridEl, saveBtn)
-			
-		}
-		
-	});
-		 
-	cellElement.append(dropDownBox)
-}
-function cityDropDownBoxEditorTemplate(cellElement, cellInfo) {
-	let cityDataSource = new DevExpress.data.DataSource({
-		store: new DevExpress.data.ArrayStore({
-			data: cities,
-			key: "ID"
-		}),
-		filter: function(data) {
-			return cellInfo.row.data.stateID.includes(data.StateID);
-		}
-	});
-	let dropDownBox = $("<div>").dxDropDownBox({
-		dataSource: cityDataSource,
-		value: cellInfo.value,
-		valueExpr: "ID",
-		displayExpr: "Name",
-		contentTemplate: function (e, element) {
-			let dataGridEl = $("<div>"),
-					dataGrid = dataGridEl.dxDataGrid({
-				dataSource: cityDataSource,
-				hoverStateEnabled: true,
-				height: 250,
-				columns: ["ID", "Name"],
-				selection: { mode: "multiple" },
-				selectedRowKeys: cellInfo.value,
-				onSelectionChanged: function (selectionChangedArgs) {
-					e.component.option("value", selectionChangedArgs.selectedRowKeys);
-				}
-			}).dxDataGrid('instance');
-			
-			let saveBtn = createDropDownSaveBtn(dataGrid, cellInfo, e.component)
-			element.append(dataGridEl, saveBtn)
-		}
-	})
-	
-	cellElement.append(dropDownBox);
-}
-
-function createDropDownSaveBtn(dataGrid, cellInfo, dropDownBox) {
-	return $("<div>").dxButton({
-					 text: "Apply",
-					 onClick: function(e) {
-						let selectedKeys = dataGrid.getSelectedRowKeys();
-						 cellInfo.setValue(selectedKeys);
-						 dropDownBox.close();
-					 }
-				 })
-}
-
-var data = [
-	{
-		stateID: [1],
-		cityID: [1]
-	}
-];
-
-const states = [
-	{
-		ID: 1,
-		Name: "Alabama"
-	},
-	{
-		ID: 2,
-		Name: "Alaska"
-	},
-	{
-		ID: 3,
-		Name: "Arizona"
-	},
-	{
-		ID: 4,
-		Name: "Arkansas"
-	},
-	{
-		ID: 5,
-		Name: "California"
-	}
-];
-
-const cities = [
-	{
-		ID: 1,
-		Name: "Tuscaloosa",
-		StateID: 1
-	},
-	{
-		ID: 2,
-		Name: "Hoover",
-		StateID: 1
-	},
-	{
-		ID: 3,
-		Name: "Dothan",
-		StateID: 1
-	},
-	{
-		ID: 4,
-		Name: "Decatur",
-		StateID: 1
-	},
-	{
-		ID: 5,
-		Name: "Anchorage",
-		StateID: 2
-	},
-	{
-		ID: 6,
-		Name: "Fairbanks",
-		StateID: 2
-	},
-	{
-		ID: 7,
-		Name: "Juneau",
-		StateID: 2
-	},
-	{
-		ID: 8,
-		Name: "Avondale",
-		StateID: 3
-	},
-	{
-		ID: 9,
-		Name: "Buckeye",
-		StateID: 3
-	},
-	{
-		ID: 10,
-		Name: "Carefree",
-		StateID: 3
-	},
-	{
-		ID: 11,
-		Name: "Springdale",
-		StateID: 4
-	},
-	{
-		ID: 12,
-		Name: "Rogers",
-		StateID: 4
-	},
-	{
-		ID: 13,
-		Name: "Sherwood",
-		StateID: 4
-	},
-	{
-		ID: 14,
-		Name: "Jacksonville",
-		StateID: 4
-	},
-	{
-		ID: 15,
-		Name: "Cabot",
-		StateID: 4
-	},
-	{
-		ID: 16,
-		Name: "Adelanto",
-		StateID: 5
-	},
-	{
-		ID: 17,
-		Name: "Glendale",
-		StateID: 5
-	},
-	{
-		ID: 18,
-		Name: "Moorpark",
-		StateID: 5
-	},
-	{
-		ID: 19,
-		Name: "Needles",
-		StateID: 5
-	},
-	{
-		ID: 20,
-		Name: "Ontario",
-		StateID: 5
-	}
-];
+		const cities = [
+			{
+				ID: 1,
+				Name: "Tuscaloosa",
+				StateID: 1
+			},
+			{
+				ID: 2,
+				Name: "Hoover",
+				StateID: 1
+			},
+			{
+				ID: 3,
+				Name: "Dothan",
+				StateID: 1
+			},
+			{
+				ID: 4,
+				Name: "Decatur",
+				StateID: 1
+			},
+			{
+				ID: 5,
+				Name: "Anchorage",
+				StateID: 2
+			},
+			{
+				ID: 6,
+				Name: "Fairbanks",
+				StateID: 2
+			},
+			{
+				ID: 7,
+				Name: "Juneau",
+				StateID: 2
+			},
+			{
+				ID: 8,
+				Name: "Avondale",
+				StateID: 3
+			},
+			{
+				ID: 9,
+				Name: "Buckeye",
+				StateID: 3
+			},
+			{
+				ID: 10,
+				Name: "Carefree",
+				StateID: 3
+			},
+			{
+				ID: 11,
+				Name: "Springdale",
+				StateID: 4
+			},
+			{
+				ID: 12,
+				Name: "Rogers",
+				StateID: 4
+			},
+			{
+				ID: 13,
+				Name: "Sherwood",
+				StateID: 4
+			},
+			{
+				ID: 14,
+				Name: "Jacksonville",
+				StateID: 4
+			},
+			{
+				ID: 15,
+				Name: "Cabot",
+				StateID: 4
+			},
+			{
+				ID: 16,
+				Name: "Adelanto",
+				StateID: 5
+			},
+			{
+				ID: 17,
+				Name: "Glendale",
+				StateID: 5
+			},
+			{
+				ID: 18,
+				Name: "Moorpark",
+				StateID: 5
+			},
+			{
+				ID: 19,
+				Name: "Needles",
+				StateID: 5
+			},
+			{
+				ID: 20,
+				Name: "Ontario",
+				StateID: 5
+			}
+		];
 	</script>
 </head>
 
 <body>
-	
-   
-<div class="dx-viewport demo-container">
-	<div id="gridBox"></div>
-	<div id="dataGrid"></div>
-</div>
+
+
+	<div class="dx-viewport demo-container">
+		<div id="gridBox"></div>
+		<div id="dataGrid"></div>
+	</div>
 
 
 </body>
