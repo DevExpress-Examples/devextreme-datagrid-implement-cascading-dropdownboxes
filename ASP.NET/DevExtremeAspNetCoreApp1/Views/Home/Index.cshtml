@@ -64,7 +64,6 @@
                 .HoverStateEnabled(true)
                 .Selection(s => s.Mode(SelectionMode.Multiple))
                 .SelectedRowKeys(new JS("component.option('value')"))
-                .OnSelectionChanged("function(selectionChangedArgs) { onSelectionChanged(selectionChangedArgs, component) }")
             )
         @(Html.DevExtreme().Button()
             .Text("Apply")
@@ -97,7 +96,6 @@
             .HoverStateEnabled(true)
             .Selection(s => s.Mode(SelectionMode.Multiple))
             .SelectedRowKeys(new JS("component.option('value')"))
-            .OnSelectionChanged("function(selectionChangedArgs) { onSelectionChanged(selectionChangedArgs, component) }")
         )
         @(Html.DevExtreme().Button()
             .Text("Apply")
@@ -147,7 +145,8 @@
         let dataGrid = getDropDownBoxGrid(dropDownBox);
         let selectedKeys = dataGrid.getSelectedRowKeys();
         setValue(selectedKeys);
-        
+
+        dropDownBox.option('value', selectedKeys);
         dropDownBox.close();
     }
 
@@ -157,7 +156,4 @@
         return dataGridEl.dxDataGrid('instance')
     }
 
-    function onSelectionChanged(e, dropDownBox) {
-        dropDownBox.option("value", e.selectedRowKeys);
-    }
 </script>

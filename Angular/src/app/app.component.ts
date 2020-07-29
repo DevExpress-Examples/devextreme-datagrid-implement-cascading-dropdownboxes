@@ -65,7 +65,7 @@ export class AppComponent {
   }
 
   setStateValue(rowData: any, value: any): void {
-    rowData.CityID = null;
+    rowData.CityID = [];
     (<any>this).defaultSetCellValue(rowData, value);
   }
 
@@ -80,9 +80,6 @@ export class AppComponent {
     container.title = text;
   }
 
-  onSelectionChanged(e) {
-    e.component.option("value", e.selectedRowKeys);
-  }
 
   onClick(dataGrid, cellInfo, dropDownBox) {
     let selectedKeys = dataGrid.getSelectedRowKeys();

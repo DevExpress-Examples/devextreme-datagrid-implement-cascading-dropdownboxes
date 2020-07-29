@@ -7389,14 +7389,14 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "A:\\Programming\\DevExtreme\\ASP.NET Testing\\SAMPLES\\Cascading DropDown editors\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1.csproj",
+      "projectUniqueName": "A:\\Programming\\GitHub\\DataGrid---How-to-implement-cascading-dropdownboxes-1\\ASP.NET\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1.csproj",
       "projectName": "DevExtremeAspNetCoreApp1",
-      "projectPath": "A:\\Programming\\DevExtreme\\ASP.NET Testing\\SAMPLES\\Cascading DropDown editors\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1.csproj",
+      "projectPath": "A:\\Programming\\GitHub\\DataGrid---How-to-implement-cascading-dropdownboxes-1\\ASP.NET\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1.csproj",
       "packagesPath": "C:\\Users\\frost\\.nuget\\packages\\",
-      "outputPath": "A:\\Programming\\DevExtreme\\ASP.NET Testing\\SAMPLES\\Cascading DropDown editors\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1\\obj\\",
+      "outputPath": "A:\\Programming\\GitHub\\DataGrid---How-to-implement-cascading-dropdownboxes-1\\ASP.NET\\DevExtremeAspNetCoreApp1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "A:\\Programming\\DevExtreme\\ASP.NET Testing\\SAMPLES\\Cascading DropDown editors\\DevExtremeAspNetCoreApp1\\NuGet.Config",
+        "A:\\Programming\\GitHub\\DataGrid---How-to-implement-cascading-dropdownboxes-1\\ASP.NET\\NuGet.Config",
         "C:\\Users\\frost\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.2.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 20.1.config",

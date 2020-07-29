@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "D+bVSw6XXk/gMOQgAMVyW7T/w6GszF05upKNynf/lqKSu3nz1hogfbzObk+ArGF2vTqtyh79/uv4LV/o0rO04A==",
+  "dgSpecHash": "GofYh1Thdj/QIqEvEe673tFb87ASNCCMCZ21VaUUzcb5DCPe7yCK2+W0eGoPULbFyDqdx5stznP9TrCUatKCHA==",
   "success": true,
-  "projectFilePath": "A:\\Programming\\DevExtreme\\ASP.NET Testing\\SAMPLES\\Cascading DropDown editors\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1.csproj",
+  "projectFilePath": "A:\\Programming\\GitHub\\DataGrid---How-to-implement-cascading-dropdownboxes-1\\ASP.NET\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\frost\\.nuget\\packages\\buildbundlerminifier\\2.9.406\\buildbundlerminifier.2.9.406.nupkg.sha512",
     "C:\\Users\\frost\\.nuget\\packages\\devextreme.aspnet.core\\20.1.6\\devextreme.aspnet.core.20.1.6.nupkg.sha512",

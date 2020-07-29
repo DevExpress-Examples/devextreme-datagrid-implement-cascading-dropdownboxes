@@ -41,7 +41,6 @@
             keyExpr="ID"
             [selectedRowKeys]="cellInfo.value"
             [hoverStateEnabled]="true"
-            (onSelectionChanged)="onSelectionChanged($event)"
           >
             <dxi-column dataField="ID"></dxi-column>
             <dxi-column dataField="Name"></dxi-column>
@@ -70,7 +69,6 @@
             [dataSource]="getCityDropDownDs(cellInfo)"
             [selectedRowKeys]="cellInfo.value"
             [hoverStateEnabled]="true"
-            (onSelectionChanged)="onSelectionChanged($event)"
           >
             <dxi-column dataField="ID"></dxi-column>
             <dxi-column dataField="Name"></dxi-column>
