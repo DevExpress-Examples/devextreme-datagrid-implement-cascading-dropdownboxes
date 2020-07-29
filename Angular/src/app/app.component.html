@@ -1,0 +1,100 @@
+<div id="data-grid-demo">
+  <dx-data-grid [dataSource]="data">
+    <dxo-editing mode="row" [allowUpdating]="true" [allowAdding]="true">
+    </dxo-editing>
+
+    <dxi-column
+      dataField="StateID"
+      caption="State"
+      [setCellValue]="setStateValue"
+      [cellTemplate]="arrayCellTemplate"
+      editCellTemplate="multipleDropDownBoxStateTemplate"
+    >
+      <dxo-lookup [dataSource]="states" valueExpr="ID" displayExpr="Name">
+      </dxo-lookup>
+    </dxi-column>
+    <dxi-column
+      dataField="CityID"
+      caption="City"
+      [cellTemplate]="arrayCellTemplate"
+      editCellTemplate="multipleDropDownBoxCityTemplate"
+    >
+      <dxo-lookup
+        [dataSource]="getFilteredCities"
+        valueExpr="ID"
+        displayExpr="Name"
+      >
+      </dxo-lookup>
+    </dxi-column>
+    <div *dxTemplate="let cellInfo of 'multipleDropDownBoxStateTemplate'">
+      <dx-drop-down-box
+        [dataSource]="states"
+        [(value)]="cellInfo.value"
+        displayExpr="Name"
+        valueExpr="ID"
+        contentTemplate="contentTemplate"
+      >
+        <div *dxTemplate="let e of 'contentTemplate'">
+          <dx-data-grid
+            #dataGrid
+            [dataSource]="states"
+            keyExpr="ID"
+            [selectedRowKeys]="cellInfo.value"
+            [hoverStateEnabled]="true"
+            (onSelectionChanged)="onSelectionChanged($event)"
+          >
+            <dxi-column dataField="ID"></dxi-column>
+            <dxi-column dataField="Name"></dxi-column>
+            <dxo-selection mode="multiple"></dxo-selection>
+          </dx-data-grid>
+          <ng-container
+            [ngTemplateOutlet]="dropDownSaveBtn"
+            [ngTemplateOutletContext]="{dataGrid: dataGrid.instance,cellInfo: cellInfo, dropDownBox: e.component}"
+          >
+          </ng-container>
+        </div>
+      </dx-drop-down-box>
+    </div>
+
+    <div *dxTemplate="let cellInfo of 'multipleDropDownBoxCityTemplate'">
+      <dx-drop-down-box
+        [dataSource]="getCityDropDownDs(cellInfo)"
+        [(value)]="cellInfo.value"
+        displayExpr="Name"
+        valueExpr="ID"
+        contentTemplate="contentTemplate"
+      >
+        <div *dxTemplate="let e of 'contentTemplate'">
+          <dx-data-grid
+            #dataGrid
+            [dataSource]="getCityDropDownDs(cellInfo)"
+            [selectedRowKeys]="cellInfo.value"
+            [hoverStateEnabled]="true"
+            (onSelectionChanged)="onSelectionChanged($event)"
+          >
+            <dxi-column dataField="ID"></dxi-column>
+            <dxi-column dataField="Name"></dxi-column>
+            <dxo-selection mode="multiple"></dxo-selection>
+          </dx-data-grid>
+          <ng-container
+            [ngTemplateOutlet]="dropDownSaveBtn"
+            [ngTemplateOutletContext]="{dataGrid: dataGrid.instance,cellInfo: cellInfo, dropDownBox: e.component}"
+          >
+          </ng-container>
+        </div>
+      </dx-drop-down-box>
+    </div>
+  </dx-data-grid>
+</div>
+
+<ng-template
+  #dropDownSaveBtn
+  let-cellInfo="cellInfo"
+  let-dataGrid="dataGrid"
+  let-dropDownBox="dropDownBox"
+>
+  <dx-button
+    text="Apply"
+    (onClick)="onClick(dataGrid, cellInfo, dropDownBox)"
+  ></dx-button>
+</ng-template>
