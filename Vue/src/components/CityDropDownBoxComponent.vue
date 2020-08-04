@@ -61,7 +61,6 @@ export default {
   },
   data() {
     return {
-      dataGridRef: "dataGrid",
       currentValue: this.value,
       dataGrid: null
     };
