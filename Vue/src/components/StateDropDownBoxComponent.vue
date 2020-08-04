@@ -11,7 +11,7 @@
         <DxDataGrid
           :data-source="dataSource"
           key-expr="ID"
-          :selected-row-keys="[currentValue]"
+          :selected-row-keys="currentValue"
           :hover-state-enabled="true"
           :height="250"
           @initialized="onInitialized"

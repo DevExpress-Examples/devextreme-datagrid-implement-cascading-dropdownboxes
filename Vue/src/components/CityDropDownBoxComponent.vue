@@ -10,7 +10,7 @@
       <div>
         <DxDataGrid
           :data-source="dataSource"
-          :selected-row-keys="[currentValue]"
+          :selected-row-keys="currentValue"
           :hover-state-enabled="true"
           :height="250"
           @initialized="onInitialized"
