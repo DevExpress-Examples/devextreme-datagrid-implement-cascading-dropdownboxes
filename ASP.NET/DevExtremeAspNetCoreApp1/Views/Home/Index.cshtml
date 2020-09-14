@@ -47,11 +47,23 @@
             .ValueExpr("ID")
             .DisplayExpr("Name")
             .Option("setValue", new JS("setValue"))
-            .ContentTemplate(new TemplateName("StateContentTemplate"))
+            .ContentTemplate(new TemplateName("DropDownContentTemplate"))
         )
     }
 
-    @using (Html.DevExtreme().NamedTemplate("StateContentTemplate"))
+    @using (Html.DevExtreme().NamedTemplate("CityDropDownBoxTemplate"))
+    {
+        @(Html.DevExtreme().DropDownBox()
+            .DataSource(new JS("getCityDropDownDs(obj)"))
+            .Value(new JS("value"))
+            .ValueExpr("ID")
+            .DisplayExpr("Name")
+            .Option("setValue", new JS("setValue"))
+            .ContentTemplate(new TemplateName("DropDownContentTemplate"))
+        )
+    }
+
+    @using (Html.DevExtreme().NamedTemplate("DropDownContentTemplate"))
     {
         @(Html.DevExtreme().DataGrid()
                 .ID("dataGrid")
@@ -65,38 +77,6 @@
                 .Selection(s => s.Mode(SelectionMode.Multiple))
                 .SelectedRowKeys(new JS("component.option('value')"))
             )
-        @(Html.DevExtreme().Button()
-            .Text("Apply")
-            .OnClick("function(e) { onClick(e, component)}")
-        )
-    }
-
-    @using (Html.DevExtreme().NamedTemplate("CityDropDownBoxTemplate"))
-    {
-        @(Html.DevExtreme().DropDownBox()
-            .DataSource(new JS("getCityDropDownDs(obj)"))
-            .Value(new JS("value"))
-            .ValueExpr("ID")
-            .DisplayExpr("Name")
-            .Option("setValue", new JS("setValue"))
-            .ContentTemplate(new TemplateName("CityContentTemplate"))
-        )
-    }
-
-    @using (Html.DevExtreme().NamedTemplate("CityContentTemplate"))
-    {
-        @(Html.DevExtreme().DataGrid()
-            .ID("dataGrid")
-            .DataSource(new JS("component.option('dataSource')"))
-            .Height(250)
-            .Columns(c => {
-                c.Add().DataField("ID");
-                c.Add().DataField("Name");
-            })
-            .HoverStateEnabled(true)
-            .Selection(s => s.Mode(SelectionMode.Multiple))
-            .SelectedRowKeys(new JS("component.option('value')"))
-        )
         @(Html.DevExtreme().Button()
             .Text("Apply")
             .OnClick("function(e) { onClick(e, component)}")

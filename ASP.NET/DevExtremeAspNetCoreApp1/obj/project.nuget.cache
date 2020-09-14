@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "GofYh1Thdj/QIqEvEe673tFb87ASNCCMCZ21VaUUzcb5DCPe7yCK2+W0eGoPULbFyDqdx5stznP9TrCUatKCHA==",
+  "dgSpecHash": "xd1zHE+R94QM16wPH1DSmf29bru6d6z8l8vFlFgx3yChVSm4jj+NNr+MhDK4g+LO9JOoI91ONRrH66wOM8IQYg==",
   "success": true,
   "projectFilePath": "A:\\Programming\\GitHub\\DataGrid---How-to-implement-cascading-dropdownboxes-1\\ASP.NET\\DevExtremeAspNetCoreApp1\\DevExtremeAspNetCoreApp1.csproj",
   "expectedPackageFiles": [
@@ -163,8 +163,7 @@
     "C:\\Users\\frost\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\frost\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\frost\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
-    "C:\\Users\\frost\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512",
-    "C:\\Users\\frost\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\3.1.2\\microsoft.aspnetcore.app.ref.3.1.2.nupkg.sha512"
+    "C:\\Users\\frost\\.nuget\\packages\\system.xml.xpath.xdocument\\4.3.0\\system.xml.xpath.xdocument.4.3.0.nupkg.sha512"
   ],
   "logs": []
 }
