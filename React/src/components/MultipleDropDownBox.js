@@ -35,7 +35,7 @@ export default function MultipleDropDownBox({value, dataSource, setValue}) {
                     <Column dataField="Name" />
                     <Selection mode="multiple" />
                 </DataGrid>
-                <DropDownBoxSave selectedKeys={selectedKeys} setCellValue={setValue} setState={dispatch} dropDownBoxClose={component.close}/>
+                <DropDownBoxSave selectedKeys={selectedKeys} setCellValue={setValue} setState={dispatch}/>
             </React.Fragment>
         )
     }
