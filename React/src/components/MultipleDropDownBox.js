@@ -21,7 +21,7 @@ export default function MultipleDropDownBox({value, dataSource, setValue}) {
         dispatch({type: "selectedKeys", data: selectedRowKeys})
     }
 
-    function renderDataGrid({component}) {
+    function renderDataGrid() {
         return (
             <React.Fragment>
                 <DataGrid 
