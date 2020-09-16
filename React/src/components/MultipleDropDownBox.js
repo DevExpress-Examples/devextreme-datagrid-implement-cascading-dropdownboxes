@@ -17,7 +17,7 @@ export default function MultipleDropDownBox({value, dataSource, setValue}) {
         visible: isOpened
     } 
 
-    function onSelectionChanged(e) {
+    function onSelectionChanged({selectedRowKeys}) {
         dispatch({type: "selectedKeys", data: selectedRowKeys})
     }
 
@@ -26,6 +26,7 @@ export default function MultipleDropDownBox({value, dataSource, setValue}) {
             <React.Fragment>
                 <DataGrid 
                     dataSource={dataSource} 
+                    keyExpr="ID"
                     selectedRowKeys={selectedKeys}
                     hoverStateEnabled={true}
                     height={250}
