@@ -9,12 +9,27 @@ import DataSource from 'devextreme/data/data_source'
 import ArrayStore from 'devextreme/data/array_store';
 
 const dataSource = service.getEmployees(),
-  states = service.getStates(),
-  cities = service.getCities();
+  states = new ArrayStore({
+    data: service.getStates(),
+    key: "ID"
+  }),
+  cities = new ArrayStore({
+    data: service.getCities(),
+    key: "ID"
+  });
 
 function App() {
   function renderMultipleDropDownBox(value, setValue, dataSource) {
     return <MultipleDropDownBox dataSource={dataSource} value={value} setValue={setValue} />
+  }
+
+  function renderCityDropDownBox(e) {
+    const {value, setValue} = e;
+    return renderMultipleDropDownBox(
+      value,
+      setValue,
+      getFilteredCities(e)
+    )
   }
   
   return (
@@ -37,14 +52,7 @@ function App() {
           dataField="CityID"
           caption="City"
           cellTemplate={arrayCellTemplate}
-          editCellRender={
-            ({ value, setValue, data: { StateID } }) => 
-            renderMultipleDropDownBox(
-              value,
-              setValue,
-              getCitySelectBoxDs(StateID)
-            )
-          }>
+          editCellRender={renderCityDropDownBox}>
           <Lookup dataSource={getFilteredCities} displayExpr="Name" valueExpr="ID" />
         </Column>
       </DataGrid>
@@ -55,7 +63,7 @@ function App() {
 function getFilteredCities(options) {
   return {
     store: cities,
-    filter: options.data ? ["StateID", "=", options.data.StateID] : null
+    filter: options.data ? ["StateID", "=", options.data.StateID] : null,
   };
 }
 
