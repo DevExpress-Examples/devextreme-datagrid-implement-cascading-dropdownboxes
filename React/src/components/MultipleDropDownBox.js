@@ -1,5 +1,4 @@
 import React, { useReducer } from 'react';
-
 import DataGrid, { Column, Selection } from 'devextreme-react/data-grid';
 import DropDownBox from 'devextreme-react/drop-down-box';
 import DropDownBoxSave from './DropDownBoxSave';
@@ -26,7 +25,6 @@ export default function MultipleDropDownBox({value, dataSource, setValue}) {
             <React.Fragment>
                 <DataGrid 
                     dataSource={dataSource} 
-                    keyExpr="ID"
                     selectedRowKeys={selectedKeys}
                     hoverStateEnabled={true}
                     height={250}

@@ -5,16 +5,30 @@ import DataGrid, { Editing, Column, Lookup } from 'devextreme-react/data-grid';
 import './App.css';
 import service from './data'
 import MultipleDropDownBox from './components/MultipleDropDownBox';
-import DataSource from 'devextreme/data/data_source'
 import ArrayStore from 'devextreme/data/array_store';
 
 const dataSource = service.getEmployees(),
-  states = service.getStates(),
-  cities = service.getCities();
+  states = new ArrayStore({
+    data: service.getStates(),
+    key: "ID"
+  }),
+  cities = new ArrayStore({
+    data: service.getCities(),
+    key: "ID"
+  });
 
 function App() {
   function renderMultipleDropDownBox(value, setValue, dataSource) {
     return <MultipleDropDownBox dataSource={dataSource} value={value} setValue={setValue} />
+  }
+
+  function renderCityDropDownBox(e) {
+    const {value, setValue} = e;
+    return renderMultipleDropDownBox(
+      value,
+      setValue,
+      getFilteredCities(e)
+    )
   }
   
   return (
@@ -37,14 +51,7 @@ function App() {
           dataField="CityID"
           caption="City"
           cellTemplate={arrayCellTemplate}
-          editCellRender={
-            ({ value, setValue, data: { StateID } }) => 
-            renderMultipleDropDownBox(
-              value,
-              setValue,
-              getCitySelectBoxDs(StateID)
-            )
-          }>
+          editCellRender={renderCityDropDownBox}>
           <Lookup dataSource={getFilteredCities} displayExpr="Name" valueExpr="ID" />
         </Column>
       </DataGrid>
@@ -55,20 +62,8 @@ function App() {
 function getFilteredCities(options) {
   return {
     store: cities,
-    filter: options.data ? ["StateID", "=", options.data.StateID] : null
+    filter: options.data ? ["StateID", "=", options.data.StateID] : null,
   };
-}
-
-function getCitySelectBoxDs(filterValue) {
-  return new DataSource({
-    store: new ArrayStore({
-      data: cities,
-      key: "ID"
-    }),
-    filter: function (dataItem) {
-      return filterValue.includes(dataItem.StateID)
-    }
-  })
 }
 
 function setStateValue(rowData, value) {
