@@ -23,7 +23,7 @@ export default {
     }
   },
   methods: {
-    onClick(e) {
+    onClick() {
       let selectedKeys = this.dataGrid.getSelectedRowKeys();
       this.cellInfo.setValue(selectedKeys);
       this.dropDownBox.option("value", selectedKeys);
