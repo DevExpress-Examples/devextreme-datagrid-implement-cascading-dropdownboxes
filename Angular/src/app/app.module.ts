@@ -1,10 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {
-  DxDataGridModule,
-  DxDropDownBoxModule,
+  DxDataGridModule
+} from "devextreme-angular/ui/data-grid";
+import {
+  DxDropDownBoxModule
+} from "devextreme-angular/ui/drop-down-box";
+import {
   DxButtonModule
-} from "devextreme-angular";
+} from "devextreme-angular/ui/button";
 import { AppComponent } from './app.component';
 
 @NgModule({
