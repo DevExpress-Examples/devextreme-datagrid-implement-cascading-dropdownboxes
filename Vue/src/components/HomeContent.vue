@@ -111,7 +111,7 @@ const getFilteredCities = (options: { data: Employee, key: number }): {
   };
 };
 
-const cityDataSource = (cellInfo: any): DataSource => {
+const cityDataSource = (cellInfo: DxDataGridTypes.ColumnEditCellTemplateData<Employee, number>): DataSource => {
   return new DataSource({
     store: new ArrayStore({
       data: cities,
