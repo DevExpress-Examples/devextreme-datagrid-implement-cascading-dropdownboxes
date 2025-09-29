@@ -36,7 +36,7 @@ export class AppComponent {
     this.cities = service.getCities();
   }
 
-  getFilteredCities = (options: EditCellInfo<Employee, number>): { store: State[] | City[]; filter: [string, string, number[]] | null } => ({
+  getFilteredCities = (options: EditCellInfo<Employee, number>): { store: City[]; filter: [string, string, number[]] | null } => ({
     store: this.cities,
     filter: options.data ? ['StateID', '=', options.data.StateID] : null,
   });
