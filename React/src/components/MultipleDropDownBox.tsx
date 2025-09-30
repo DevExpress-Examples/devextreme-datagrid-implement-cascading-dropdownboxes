@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo, useReducer } from 'react';
 import DataGrid, { Column, Selection, type DataGridTypes } from 'devextreme-react/data-grid';
 import DropDownBox from 'devextreme-react/drop-down-box';
-import type { ArrayStore, DataSource } from 'devextreme-react/common/data';
+import type { ArrayStore, DataSourceOptions } from 'devextreme-react/common/data';
 import DropDownBoxSave from './DropDownBoxSave';
 
 interface MultipleDropDownBoxProps {
   value: number[];
-  dataSource: DataSource | ArrayStore;
+  dataSource: DataSourceOptions | ArrayStore;
   // eslint-disable-next-line no-unused-vars
   setValue: (newValue: number[]) => void;
 }

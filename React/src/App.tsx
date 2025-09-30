@@ -4,7 +4,7 @@ import DataGrid, {
 } from 'devextreme-react/data-grid';
 import './App.css';
 import ArrayStore from 'devextreme/data/array_store';
-import { DataSource } from 'devextreme-react/common/data';
+import { DataSource, type DataSourceOptions } from 'devextreme-react/common/data';
 import service, { type City, type Employee } from './data';
 import MultipleDropDownBox from './components/MultipleDropDownBox';
 
@@ -20,13 +20,13 @@ const citiesStore = new ArrayStore({
   key: 'ID',
 });
 
-function getFilteredCities(cellInfo: DataGridTypes.ColumnEditCellTemplateData<Employee, number>, citiesStore: ArrayStore): DataSource {
-  return new DataSource({
+function getFilteredCities(cellInfo: DataGridTypes.ColumnEditCellTemplateData<Employee, number>, citiesStore: ArrayStore): DataSourceOptions {
+  return {
     store: citiesStore,
     filter: (data: City) => (cellInfo.data?.StateID && cellInfo.data?.StateID?.length > 0
       ? cellInfo.data?.StateID.includes(data.StateID)
       : true),
-  });
+  };
 }
 
 async function setStateValue(this: DataGridTypes.Column<Employee, number>, rowData: Employee, value: number[], currentRowData: Employee): Promise<void> {
