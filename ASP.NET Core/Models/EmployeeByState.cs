@@ -1,10 +1,10 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DevExtremeAspNetCoreApp1.Models
+namespace ASP_NET_Core.Models
 {
     public class EmployeeByState
     {
@@ -15,7 +15,7 @@ namespace DevExtremeAspNetCoreApp1.Models
         public string Prefix { get; set; }
 
         [Display(Name = "State")]
-        public List<int>  StateID { get; set; }
+        public List<int> StateID { get; set; }
 
         [Display(Name = "City")]
         public List<int> CityID { get; set; }

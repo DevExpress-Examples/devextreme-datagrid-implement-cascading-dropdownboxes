@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DevExtremeAspNetCoreApp1.Models
+namespace ASP_NET_Core.Models
 {
     public class CityByState
     {
