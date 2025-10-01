@@ -4,7 +4,7 @@ import DataGrid, {
 } from 'devextreme-react/data-grid';
 import './App.css';
 import ArrayStore from 'devextreme/data/array_store';
-import { DataSource, type DataSourceOptions } from 'devextreme-react/common/data';
+import { type DataSourceOptions } from 'devextreme-react/common/data';
 import service, { type City, type Employee } from './data';
 import MultipleDropDownBox from './components/MultipleDropDownBox';
 
@@ -47,7 +47,7 @@ function renderMultipleDropDownBox(
   currentValue: number[],
   // eslint-disable-next-line no-unused-vars
   setValue: (value: number[]) => void,
-  dataSource: ArrayStore | DataSource,
+  dataSource: ArrayStore | DataSourceOptions,
 ): JSX.Element {
   return (
     <MultipleDropDownBox
