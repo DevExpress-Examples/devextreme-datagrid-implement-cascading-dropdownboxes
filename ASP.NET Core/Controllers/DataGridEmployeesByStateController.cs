@@ -8,7 +8,7 @@ using DevExtreme.AspNet.Mvc;
 using ASP_NET_Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using System.Text.Json;
 
 namespace ASP_NET_Core.Controllers
 {
@@ -24,9 +24,8 @@ namespace ASP_NET_Core.Controllers
         [HttpPost]
         public IActionResult Post(string values)
         {
-            var newEmployee = new EmployeeByState();
-            JsonConvert.PopulateObject(values, newEmployee);
-
+            var newEmployee = JsonSerializer.Deserialize<EmployeeByState>(values);
+            newEmployee.ID = SampleData.DataGridEmployeesByState.Max(a => a.ID) + 1;
             if (!TryValidateModel(newEmployee))
                 return BadRequest("Failed to insert item");
 
@@ -40,7 +39,7 @@ namespace ASP_NET_Core.Controllers
         {
             var employee = SampleData.DataGridEmployeesByState.First(a => a.ID == key);
 
-            PopulateModel(JsonConvert.DeserializeObject<EmployeeByState>(values), employee);
+            PopulateModel(JsonSerializer.Deserialize<EmployeeByState>(values), employee);
 
             if (!TryValidateModel(employee))
                 return BadRequest("Failed to update item");

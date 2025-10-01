@@ -13,16 +13,22 @@ This example demonstrates how to implement cascading DropDownBoxes. The main ide
 ## Files to Review
 
 - **jQuery**
-    - [index.html](jQuery/index.html)
+    - [index.html](jQuery/src/index.html)
+    - [index.js](jQuery/src/index.js)
 - **Angular**
     - [app.component.html](Angular/src/app/app.component.html)
     - [app.component.ts](Angular/src/app/app.component.ts)
 - **Vue**
-    - [App.vue](Vue/src/App.vue)
+    - [Home.vue](Vue/src//components/HomeContent.vue)
+    - [StateDropDownBoxComponent](Vue/src/components/StateDropDownBoxComponent.vue)
+    - [CityDropDownBoxComponent](Vue/src/components/CityDropDownBoxComponent.vue)
+    - [DropDownSaveBtnComponent](Vue/src/components/DropDownSaveBtnComponent.vue)
 - **React**
-    - [App.js](React/src/App.js)
+    - [App.tsx](React/src/App.tsx)
+    - [DropDownBox.tsx](React/src/components/MultipleDropDownBox.tsx)
+    - [DropDownBoxSaveButton](React/src/components/DropDownBoxSave.tsx)
 - **ASP.Net**    
-    - [Index.cshtml](ASP.NET/DevExtremeAspNetCoreApp1/Views/Home/Index.cshtml)
+    - [Index.cshtml](ASP.NET%20Core/Views/Home/Index.cshtml)
     
 ## Documentation
 
