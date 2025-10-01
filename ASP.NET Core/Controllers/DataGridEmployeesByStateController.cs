@@ -1,16 +1,16 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using DevExtreme.AspNet.Data;
 using DevExtreme.AspNet.Mvc;
-using DevExtremeAspNetCoreApp1.Models;
+using ASP_NET_Core.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
-namespace DevExtremeAspNetCoreApp1.Controllers
+namespace ASP_NET_Core.Controllers
 {
     [Route("api/[controller]/[action]")]
     public class DataGridEmployeesByStateController : Controller
@@ -30,7 +30,7 @@ namespace DevExtremeAspNetCoreApp1.Controllers
             if (!TryValidateModel(newEmployee))
                 return BadRequest("Failed to insert item");
 
-            SampleData.DataGridEmployeesByState.Append(newEmployee);
+            SampleData.DataGridEmployeesByState.Add(newEmployee);
 
             return Ok();
         }
@@ -42,10 +42,8 @@ namespace DevExtremeAspNetCoreApp1.Controllers
 
             PopulateModel(JsonConvert.DeserializeObject<EmployeeByState>(values), employee);
 
-
             if (!TryValidateModel(employee))
                 return BadRequest("Failed to update item");
-
 
             return Ok();
         }
