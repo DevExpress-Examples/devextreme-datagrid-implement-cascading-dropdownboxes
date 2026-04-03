@@ -20,9 +20,9 @@ const citiesStore = new ArrayStore({
   key: 'ID',
 });
 
-function getFilteredCities(cellInfo: DataGridTypes.ColumnEditCellTemplateData<Employee, number>, citiesStore: ArrayStore): DataSourceOptions {
+function getFilteredCities(cellInfo: DataGridTypes.ColumnEditCellTemplateData<Employee, number>, citiesArrayStore: ArrayStore): DataSourceOptions {
   return {
-    store: citiesStore,
+    store: citiesArrayStore,
     filter: (data: City) => (cellInfo.data?.StateID && cellInfo.data?.StateID?.length > 0
       ? cellInfo.data?.StateID.includes(data.StateID)
       : true),
@@ -46,11 +46,11 @@ function arrayCellTemplate(container: HTMLElement, options: DataGridTypes.Column
 function renderMultipleDropDownBox(
   currentValue: number[],
   setValue: (value: number[]) => void,
-  dataSource: ArrayStore | DataSourceOptions,
+  dropDownDataSource: ArrayStore | DataSourceOptions,
 ): JSX.Element {
   return (
     <MultipleDropDownBox
-      dataSource={dataSource}
+      dataSource={dropDownDataSource}
       value={currentValue}
       setValue={setValue}
     />
