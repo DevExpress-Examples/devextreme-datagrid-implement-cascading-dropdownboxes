@@ -1,32 +1,40 @@
 <div class="data-grid-demo">
   <dx-data-grid [dataSource]="data" [showBorders]="true">
-    <dxo-editing mode="row" [allowUpdating]="true" [allowAdding]="true">
-    </dxo-editing>
+    <dxo-data-grid-editing
+      mode="row"
+      [allowUpdating]="true"
+      [allowAdding]="true"
+    >
+    </dxo-data-grid-editing>
 
-    <dxi-column
+    <dxi-data-grid-column
       dataField="StateID"
       caption="State"
       [setCellValue]="setStateValue"
       [cellTemplate]="arrayCellTemplate"
       editCellTemplate="stateDropDownBoxTemplate"
     >
-      <dxo-lookup [dataSource]="states" displayExpr="Name" valueExpr="ID">
-      </dxo-lookup>
-    </dxi-column>
+      <dxo-data-grid-lookup
+        [dataSource]="states"
+        displayExpr="Name"
+        valueExpr="ID"
+      >
+      </dxo-data-grid-lookup>
+    </dxi-data-grid-column>
 
-    <dxi-column
+    <dxi-data-grid-column
       dataField="CityID"
       caption="City"
       [cellTemplate]="arrayCellTemplate"
       editCellTemplate="cityDropDownBoxTemplate"
     >
-      <dxo-lookup
+      <dxo-data-grid-lookup
         [dataSource]="getFilteredCities"
         displayExpr="Name"
         valueExpr="ID"
       >
-      </dxo-lookup>
-    </dxi-column>
+      </dxo-data-grid-lookup>
+    </dxi-data-grid-column>
 
     <div *dxTemplate="let cellInfo of 'stateDropDownBoxTemplate'">
       <dx-drop-down-box
@@ -45,9 +53,9 @@
             [height]="250"
             (onInitialized)="stateDataGrid = $event.component"
           >
-            <dxi-column dataField="ID"></dxi-column>
-            <dxi-column dataField="Name"></dxi-column>
-            <dxo-selection mode="multiple"></dxo-selection>
+            <dxi-data-grid-column dataField="ID"></dxi-data-grid-column>
+            <dxi-data-grid-column dataField="Name"></dxi-data-grid-column>
+            <dxo-data-grid-selection mode="multiple"></dxo-data-grid-selection>
           </dx-data-grid>
           <dx-button
             text="Apply"
@@ -74,9 +82,9 @@
             [height]="250"
             (onInitialized)="cityDataGrid = $event.component"
           >
-            <dxi-column dataField="ID"></dxi-column>
-            <dxi-column dataField="Name"></dxi-column>
-            <dxo-selection mode="multiple"></dxo-selection>
+            <dxi-data-grid-column dataField="ID"></dxi-data-grid-column>
+            <dxi-data-grid-column dataField="Name"></dxi-data-grid-column>
+            <dxo-data-grid-selection mode="multiple"></dxo-data-grid-selection>
           </dx-data-grid>
           <dx-button
             text="Apply"

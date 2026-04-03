@@ -10,6 +10,7 @@ import { CityDropDownInfo, EditCellInfo } from './app.types';
 
 @Component({
   selector: 'app-root',
+  standalone: false,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   providers: [AppService],
@@ -36,7 +37,7 @@ export class AppComponent {
     this.cities = service.getCities();
   }
 
-  getFilteredCities = (options: EditCellInfo<Employee, number>): { store: City[]; filter: [string, string, number[]] | null } => ({
+  getFilteredCities = (options: EditCellInfo): { store: City[]; filter: [string, string, number[]] | null } => ({
     store: this.cities,
     filter: options.data ? ['StateID', '=', options.data.StateID] : null,
   });
