@@ -39,7 +39,6 @@ import type { DataSource } from 'devextreme-vue/common/data';
 
 interface Props {
   value: number[] | undefined;
-  // eslint-disable-next-line no-unused-vars
   onValueChanged: (value: number[]) => void;
   dataSource: DataSource;
   cellInfo: DxDataGridTypes.ColumnEditCellTemplateData<Employee, number>;

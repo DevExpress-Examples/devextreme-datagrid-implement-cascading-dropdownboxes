@@ -8,7 +8,6 @@ type DropDownBoxAction =
 
 interface DropDownBoxSaveProps {
   selectedKeys: number[];
-  // eslint-disable-next-line no-unused-vars
   setCellValue: (value: number[]) => void;
   setState: React.Dispatch<DropDownBoxAction>;
 }

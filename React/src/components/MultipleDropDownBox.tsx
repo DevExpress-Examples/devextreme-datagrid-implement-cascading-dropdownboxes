@@ -7,7 +7,6 @@ import DropDownBoxSave from './DropDownBoxSave';
 interface MultipleDropDownBoxProps {
   value: number[];
   dataSource: DataSourceOptions | ArrayStore;
-  // eslint-disable-next-line no-unused-vars
   setValue: (newValue: number[]) => void;
 }
 

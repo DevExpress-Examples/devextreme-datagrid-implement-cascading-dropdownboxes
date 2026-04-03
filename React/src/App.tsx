@@ -45,7 +45,6 @@ function arrayCellTemplate(container: HTMLElement, options: DataGridTypes.Column
 
 function renderMultipleDropDownBox(
   currentValue: number[],
-  // eslint-disable-next-line no-unused-vars
   setValue: (value: number[]) => void,
   dataSource: ArrayStore | DataSourceOptions,
 ): JSX.Element {

@@ -39,7 +39,6 @@ import type { Employee, State } from '../data';
 
 interface Props {
   value: number[] | undefined;
-  // eslint-disable-next-line no-unused-vars
   onValueChanged: (value: number[]) => void;
   dataSource: State[];
   cellInfo: DxDataGridTypes.ColumnEditCellTemplateData<Employee, number>;
