@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { DataSource, ArrayStore } from 'devextreme-angular/common/data';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 import dxDataGrid from 'devextreme/ui/data_grid';
@@ -13,6 +13,7 @@ import { CityDropDownInfo, EditCellInfo } from './app.types';
   standalone: false,
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   providers: [AppService],
 })
 export class AppComponent {
